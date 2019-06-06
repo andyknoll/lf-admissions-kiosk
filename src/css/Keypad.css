@@ -1,0 +1,59 @@
+/* Keypad.css */
+
+.keypad {
+  position: relative;
+  margin: auto;
+  top: 0px;
+  width: 800px;
+  height: 500px;
+  overflow: hidden;
+  background-image: url("../img/android-800x500.png");
+}
+
+.key-row {
+  display: block;
+  position: relative;
+}
+
+.keys {
+  position: absolute;
+  top: 50px;
+  left: 48px;
+  width: 700px;
+  height: 400px;
+  background-color: white;
+  border: 0px solid gray;
+}
+
+/* use no-select here! */
+.key {
+  position: relative;
+  display: inline-block;
+  margin: 2px;
+  margin-bottom: 5px;
+  width: 65px;
+  height: 70px;
+  padding-top: 10px;
+  font-size: 40px;
+  color: white;
+  text-shadow: 1px 1px 1px gray;
+  background-color: #005A50;
+  border: 0px solid gray;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px gray;
+}
+
+.half-ht {
+  height: 35px;
+  padding-top: 15px;
+  font-size: 14px;
+}
+
+#space-bar {
+  width: 340px;
+}
+
+#spacer {
+  height: 45px;
+}
+

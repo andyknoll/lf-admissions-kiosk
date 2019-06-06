@@ -1,0 +1,64 @@
+/* Pets.css */
+
+.pets {
+  position: relative;
+  margin: auto;
+  top: 0px;
+  width: 800px;
+  height: 550px;
+  border: 0px solid white;
+}
+
+.pet-row {
+  display: block;
+  position: relative;
+  border: 0px solid white;
+}
+
+.pet-card {
+  position: relative;
+  display: inline-block;
+  width: 210px;
+  height: 210px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 4px solid #006050;
+  box-shadow: 2px 2px 2px black;
+  overflow: hidden;
+}
+
+.pet-card:hover {
+  border: 4px solid #E8E5DA;
+}
+
+
+.pet-card-current {
+  position: relative;
+  display: inline-block;
+  width: 210px;
+  height: 210px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 4px solid gold;
+  box-shadow: 2px 2px 2px black;
+  overflow: hidden;
+}
+
+
+.pet-label {
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  bottom: 0px;
+  color: #ffffff;
+  font-size: 28px;
+  background-color: #006156;
+}
+
+#pet-1  { background-image: url("../img/animal-dog2-210x180.jpg") }
+#pet-2  { background-image: url("../img/animal-cat2-210x180.jpg") }
+#pet-3  { background-image: url("../img/animal-rabbit2-210x180.jpg") }
+#pet-4  { background-image: url("../img/animal-bird2-210x180.jpg") }
+#pet-5  { background-image: url("../img/animal-small2-210x180.jpg") }
+#pet-6  { background-image: url("../img/animal-other2-210x180.jpg") }
+
