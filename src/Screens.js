@@ -33,7 +33,10 @@ export const Screen1 = (props) => {
       <ParaPoses
         pose = "poseVisible">    
         <h2>Thank you for choosing Lollypop Farm Admissions.</h2>
-        <h2>Please use this kiosk to sign in and help the<br/>admission process run smoothly.</h2>
+        <br/>
+        <h2>We understand that this may be a difficult time<br/> for you and we are here to help.</h2>
+        <br/>
+        <h2>Please use this kiosk to sign in and help your<br/>admission process run smoothly.</h2>
       </ParaPoses>
     </ScreenPoses>
   );
@@ -78,7 +81,7 @@ export const Screen4 = (props) => {
   let pet = props.appState.person.pet;
   let petName = pet.toLowerCase();
   // fix this so it does not depend on NAMES
-  if (pet === "SMALL" || pet === "OTHER") petName = "pet";
+  if (pet === "SMALL" || pet === "OTHER" || pet === "NONE") petName = "pet";
   return (
     <ScreenPoses
       className = "screen"
@@ -86,7 +89,7 @@ export const Screen4 = (props) => {
       <h1>Thank you {fName}!</h1>
       <ParaPoses
         pose = "poseVisible">    
-        <h2>An Admissions staff member will<br/> be with you shortly to help you with your {petName}.</h2>
+        <h2>An Admissions staff member will be with you<br/> shortly to help you with your {petName}.</h2>
       </ParaPoses>
     </ScreenPoses>
   );
