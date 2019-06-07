@@ -3,7 +3,9 @@
   Andy Knoll
   June 2019
 
-  Notes:
+  Kiosk app for Lollypop Farm Admissions
+
+  NOTES:
 
     pass down props to components
     maintain state in the top level App
@@ -11,10 +13,16 @@
 
   TO DO:
   
+    NextButton component
     enable Next button - canAdvance()
     get KeyPad working
     Axios AJAX calls
     PHP/MySQL DB server
+
+  DONE:
+
+    return to Welcome Screen after 10 secs
+    animations tweaked OK
 
 */
 
@@ -30,6 +38,8 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.intervalId = 0;
 
     this.state = {
       person: {
@@ -52,22 +62,27 @@ class App extends React.Component {
     }, 500);
 
     /*
-    setInterval(() => { 
-      this.setState({currScreen: HELLO_SCREEN}) 
-    }, 10000);
     */
   }
 
   onNextButtonClick() {
     let nextScreen = this.state.currScreen + 1;
     if (nextScreen > CONF_SCREEN) nextScreen = HELLO_SCREEN;   // wrap around to 1
-    this.setState({currScreen: nextScreen}, () => {this.stateHasChanged()});
+    this.setState({currScreen: nextScreen}, () => {this.nextButtonClicked()});
   }
 
   // called AFTER setState is completed
-  stateHasChanged() {
+  nextButtonClicked() {
     //alert("App.stateHasChanged");
     console.log(this.state);
+
+    // always return to WELCOME SCREEN - do not leave kiosk hanging
+    clearInterval(this.intervalId);
+
+    // should clear ENTIRE state here - person too!
+    this.intervalId = setInterval(() => { 
+      this.setState({currScreen: HELLO_SCREEN}) 
+    }, 5000);
   }
 
   // pass this all the way down to Pets screen!
@@ -79,7 +94,7 @@ class App extends React.Component {
   }
 
   // this may not be needed up here - just the names
-  onKeyMouseDown(petId) {
+  onKeyMouseDown(keyId) {
     //alert("App.onKeyMouseDown: " + petId);
   }
 
