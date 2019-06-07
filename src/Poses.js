@@ -5,7 +5,18 @@ import posed from 'react-pose';
 const durIn  = 500;
 const durOut = 250;
 
-export const charPoses = {
+export {
+  charPoses,
+  ScreenPoses,
+  ParaPoses,
+  TabletPoses,
+  KeysPoses,
+  KeyPoses,
+  PetsPoses,
+  PetPoses 
+}
+
+const charPoses = {
   exit: { 
     opacity: 0,
     x: 0,
@@ -26,8 +37,7 @@ export const charPoses = {
 };
 
 
-
-export const ScreenPoses = posed.div({
+const ScreenPoses = posed.div({
   poseHidden: { 
     //visibility: "visible",
     opacity: 0,
@@ -59,7 +69,7 @@ export const ScreenPoses = posed.div({
   initialPose: "poseHidden"
 });
 
-export const Pose2 = posed.div({
+const ParaPoses = posed.div({
   poseHidden: { 
     opacity: 0,
     y: 10,
@@ -74,7 +84,7 @@ export const Pose2 = posed.div({
   initialPose: "poseHidden"
 });
 
-export const TabletIn = posed.div({
+const TabletPoses = posed.div({
   poseHidden: { 
     opacity: 0,
     rotateX: 0,
@@ -94,7 +104,7 @@ export const TabletIn = posed.div({
 });
 
 
-export const KeysIn = posed.div({
+const KeysPoses = posed.div({
   poseHidden: { 
     opacity: 0,
     //y: -500,
@@ -110,8 +120,11 @@ export const KeysIn = posed.div({
   initialPose: "poseHidden"
 });
 
+const KeyPoses = posed.div({
+});
 
-export const PetsIn = posed.div({
+
+const PetsPoses = posed.div({
   poseHidden: { 
   },
   poseVisible: { 
@@ -121,16 +134,7 @@ export const PetsIn = posed.div({
   initialPose: "poseHidden",
 });
 
-export const PetIn = posed.div({
-  /*
-  hoverable: true,
-  init: {
-    border: "2px solid #006156"   // LF teal
-  },
-  hover: {
-    border: "2px solid #E8E5DA"   // LF wheat
-  },
-  */
+const PetPoses = posed.div({
   poseHidden: { 
     scale: 0,
     delay: 250,

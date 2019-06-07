@@ -1,3 +1,15 @@
+/*
+  App.js
+  Andy Knoll
+  June 2019
+
+  Notes:
+
+    pass down props to components
+    maintain state in the top level App
+    define animations in Poses
+*/
+
 import React from 'react';
 import { ScreenViewer } from './ScreenViewer';
 import { NO_SCREEN, HELLO_SCREEN, CONF_SCREEN } from './Screens'
@@ -22,6 +34,7 @@ class App extends React.Component {
 
     this.onNextButtonClick = this.onNextButtonClick.bind(this);   // must bind!
     this.onPetMouseDown = this.onPetMouseDown.bind(this);         // must bind!
+    this.onKeyMouseDown = this.onKeyMouseDown.bind(this);         // must bind!
   }
 
   componentDidMount() {
@@ -56,14 +69,19 @@ class App extends React.Component {
     this.setState({person: {...aPerson, pet: PetNames[petId]}}, () => {this.stateHasChanged()});
   }
 
-  // must pass onSelectPet, etc... ?
+  onKeyMouseDown(petId) {
+    alert("App.onKeyMouseDown: " + petId);
+  }
+
+
   render() {
     return (
       <div className="app">
         <ScreenViewer 
           currScreen={this.state.currScreen}
           appState={this.state}
-          onPetMouseDown={this.onPetMouseDown}>
+          onPetMouseDown={this.onPetMouseDown}
+          onKeyMouseDown={this.onKeyMouseDown}>
         </ScreenViewer>
         <button 
           className="next-button" 

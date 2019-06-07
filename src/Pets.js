@@ -1,7 +1,7 @@
 // Pets.js
 
 import React from 'react';
-import { PetIn, PetsIn } from './Poses';
+import { PetsPoses, PetPoses } from './Poses';
 import './css/Pets.css';
 
 export const PetNames = ["NONE", "DOG", "CAT", "RABBIT", "BIRD", "SMALL", "OTHER"];
@@ -15,26 +15,9 @@ export const PET_OTHER  = 6;
 
 class Pets extends React.Component {
 
-  constructor(props) {
-    super(props);
-    //this.state = { currPet: PET_NONE }
-    //this.onPetMouseDown = this.onPetMouseDown.bind(this);   // must bind!
-  }
-
-  /*
-  // pass this up to Viewer and App?
-  onPetMouseDown(petId) {
-    this.setState({currPet: petId}, () => {this.stateHasChanged()});
-  }
-
-  stateHasChanged() {
-    //alert("stateHasChanged: " + PetNames[this.state.currPet])
-  }
-  */
-
   render() {
     return (
-      <PetsIn>
+      <PetsPoses>
         < div className="pets">
           <div className="pet-row">          
             <Pet id={PET_DOG}    onMouseDown={this.props.onPetMouseDown} appState={this.props.appState}></Pet>
@@ -47,7 +30,7 @@ class Pets extends React.Component {
             <Pet id={PET_OTHER}  onMouseDown={this.props.onPetMouseDown} appState={this.props.appState}></Pet>
           </div>
         </div>
-      </PetsIn>
+      </PetsPoses>
     );
   }
 
@@ -55,17 +38,15 @@ class Pets extends React.Component {
 
 
 // MUST set onMouseDown to a function!
-// props.id - 1, 2, 3 etc
-// pet.id   - "pet-1" etc.
 const Pet = (props) => {
   let currPet = props.appState.person.pet;
   return (
-    <PetIn 
+    <PetPoses
       className={currPet === PetNames[props.id] ? "pet-card-current" : "pet-card"}
       id={"pet-" + props.id}
       onMouseDown={() => props.onMouseDown(props.id)}>
       <div className="pet-label">{PetNames[props.id]}</div>
-    </PetIn>      
+    </PetPoses>      
   );
 }
 

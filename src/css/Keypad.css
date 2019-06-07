@@ -1,5 +1,9 @@
 /* Keypad.css */
 
+.no-select {
+  user-select: none;
+}
+
 .keypad {
   position: relative;
   margin: auto;
@@ -43,15 +47,15 @@
   box-shadow: 1px 1px 1px gray;
 }
 
-.half-ht {
+.key-half-height {
   height: 35px;
   padding-top: 15px;
   font-size: 14px;
 }
 
-#space-bar {
-  width: 340px;
-}
+#back  { width: 90px; }
+#space { width: 274px; }
+#clear { width: 90px; }
 
 #spacer {
   height: 45px;

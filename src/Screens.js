@@ -4,8 +4,7 @@ import React from 'react';
 import SplitText from 'react-pose-text';
 import Keypad from './Keypad';
 import Pets from './Pets';
-import { ScreenPoses, Pose2, TabletIn, charPoses } from './Poses';
-
+import { ScreenPoses, ParaPoses, TabletPoses, charPoses } from './Poses';
 
 export const NO_SCREEN    = 0;
 export const HELLO_SCREEN = 1;
@@ -31,11 +30,11 @@ export const Screen1 = (props) => {
           Welcome to Lollypop Farm
         </SplitText>
       </h1>
-      <Pose2
+      <ParaPoses
         pose = "poseVisible">    
         <h2>Thank you for choosing Lollypop Farm Admissions.</h2>
         <h2>Please use this kiosk to sign in and help the<br/>admission process run smoothly.</h2>
-      </Pose2>
+      </ParaPoses>
     </ScreenPoses>
   );
 }
@@ -48,10 +47,10 @@ export const Screen2 = (props) => {
       className = "screen"
       pose={props.currScreen === NAME_SCREEN ? "poseVisible" : "poseHidden"}>    
       <h1>Please enter your name</h1>
-      <TabletIn
+      <TabletPoses
         pose = "poseVisible">    
-        <Keypad></Keypad>
-      </TabletIn>
+        <Keypad onKeyMouseDown={props.onKeyMouseDown} appState={props.appState}></Keypad>
+      </TabletPoses>
     </ScreenPoses>
   );
 }
@@ -64,10 +63,10 @@ export const Screen3 = (props) => {
       className = "screen"
       pose={props.currScreen === PET_SCREEN ? "poseVisible" : "poseHidden"}> 
       <h1>Please select your pet type</h1>
-      <Pose2
+      <ParaPoses
         pose = "poseVisible">    
         <Pets onPetMouseDown={props.onPetMouseDown} appState={props.appState}></Pets>
-      </Pose2>
+      </ParaPoses>
     </ScreenPoses>
   );
 }
@@ -85,10 +84,10 @@ export const Screen4 = (props) => {
       className = "screen"
       pose={props.currScreen === CONF_SCREEN ? "poseVisible" : "poseHidden"}>    
       <h1>Thank you {fName}!</h1>
-      <Pose2
+      <ParaPoses
         pose = "poseVisible">    
         <h2>An Admissions staff member will<br/> be with you shortly to help you with your {petName}.</h2>
-      </Pose2>
+      </ParaPoses>
     </ScreenPoses>
   );
 }
