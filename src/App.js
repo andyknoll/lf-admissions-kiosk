@@ -8,6 +8,14 @@
     pass down props to components
     maintain state in the top level App
     define animations in Poses
+
+  TO DO:
+  
+    enable Next button - canAdvance()
+    get KeyPad working
+    Axios AJAX calls
+    PHP/MySQL DB server
+    
 */
 
 import React from 'react';

@@ -148,7 +148,7 @@ const LogoPoses = posed.div({
     opacity: .9,
     scaleY: 1,
     delay: 1000,
-    transition: { ease: 'easeIn', duration: 500 } 
+    transition: { ease: 'easeOut', duration: 500 } 
   },
   initialPose: "poseHidden"
 });
