@@ -5,17 +5,6 @@ import posed from 'react-pose';
 const durIn  = 500;
 const durOut = 250;
 
-export {
-  charPoses,
-  ScreenPoses,
-  ParaPoses,
-  TabletPoses,
-  KeysPoses,
-  KeyPoses,
-  PetsPoses,
-  PetPoses 
-}
-
 const charPoses = {
   exit: { 
     opacity: 0,
@@ -107,13 +96,13 @@ const TabletPoses = posed.div({
 const KeysPoses = posed.div({
   poseHidden: { 
     opacity: 0,
-    //y: -500,
+    scale: .9,
     delay: 500,
     transition: { ease: 'easeIn', duration: durOut } 
   },
   poseVisible: { 
     opacity: 1,
-    //y: 0,
+    scale: 1,
     delay: 1000,
     transition: { ease: 'easeIn', duration: 500 } 
   },
@@ -147,4 +136,33 @@ const PetPoses = posed.div({
   },
   initialPose: "poseHidden"
 });
+
+const LogoPoses = posed.div({
+  poseHidden: { 
+    opacity: 0,
+    scaleY: 0,
+    delay: 0,
+    transition: { ease: 'easeIn', duration: 250 } 
+  },
+  poseVisible: { 
+    opacity: .9,
+    scaleY: 1,
+    delay: 1000,
+    transition: { ease: 'easeIn', duration: 500 } 
+  },
+  initialPose: "poseHidden"
+});
+
+
+export {
+  charPoses,
+  ScreenPoses,
+  ParaPoses,
+  TabletPoses,
+  KeysPoses,
+  KeyPoses,
+  PetsPoses,
+  PetPoses,
+  LogoPoses
+}
 

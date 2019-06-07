@@ -39,6 +39,23 @@ h2 {
   border: 0px solid red;
 }
 
+.next-button {
+  position: relative;
+  margin: auto;
+  margin-top: 20px;
+  top: 650px;
+  left: 0px;
+  width: 300px;
+  height: 80px;
+  font-size: 2.5em;
+  color: #E8E5DA;
+  background-color: #006156;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px black
+}
+
+/* MOVE THESE TO ScreenViewer.css */
+
 .screen-viewer {
   position: absolute;
   width: 1000px;
@@ -55,17 +72,15 @@ h2 {
   opacity: 0;
 }
 
-.next-button {
-  position: relative;
+.logo {
   margin: auto;
-  margin-top: 20px;
-  top: 650px;
-  left: 0px;
-  width: 300px;
-  height: 80px;
-  font-size: 2.5em;
-  color: #E8E5DA;
-  background-color: #006156;
-  border-radius: 10px;
-  box-shadow: 2px 2px 4px black
+  margin-top: 10px;
+  width: 600px;
+  height: 338px;
+  background-repeat: no-repeat;
+  background-image: url("../img/lollypop-farm-logo-600.jpg");
+  border-radius: 30px;
+  border: 5px solid #E8E5DA;
+
 }
+

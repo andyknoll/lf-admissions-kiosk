@@ -69,8 +69,9 @@ class App extends React.Component {
     this.setState({person: {...aPerson, pet: PetNames[petId]}}, () => {this.stateHasChanged()});
   }
 
+  // this may not be needed up here - just the names
   onKeyMouseDown(petId) {
-    alert("App.onKeyMouseDown: " + petId);
+    //alert("App.onKeyMouseDown: " + petId);
   }
 
 

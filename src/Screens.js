@@ -4,7 +4,7 @@ import React from 'react';
 import SplitText from 'react-pose-text';
 import Keypad from './Keypad';
 import Pets from './Pets';
-import { ScreenPoses, ParaPoses, TabletPoses, charPoses } from './Poses';
+import { ScreenPoses, ParaPoses, TabletPoses, charPoses, LogoPoses } from './Poses';
 
 export const NO_SCREEN    = 0;
 export const HELLO_SCREEN = 1;
@@ -12,10 +12,12 @@ export const NAME_SCREEN  = 2;
 export const PET_SCREEN   = 3;
 export const CONF_SCREEN  = 4;
 
+
 // NO_SCREEN
 export const Screen0 = (props) => {
   return <div></div>;
 }
+
 
 // WELCOME_SCREEN
 export const Screen1 = (props) => {
@@ -32,6 +34,7 @@ export const Screen1 = (props) => {
       </h1>
       <ParaPoses
         pose = "poseVisible">    
+        <br/>
         <h2>Thank you for choosing Lollypop Farm Admissions.</h2>
         <br/>
         <h2>We understand that this may be a difficult time<br/> for you and we are here to help.</h2>
@@ -90,6 +93,7 @@ export const Screen4 = (props) => {
       <ParaPoses
         pose = "poseVisible">    
         <h2>An Admissions staff member will be with you<br/> shortly to help you with your {petName}.</h2>
+        <LogoPoses class="logo"></LogoPoses>
       </ParaPoses>
     </ScreenPoses>
   );

@@ -21,11 +21,11 @@
 
 .keys {
   position: absolute;
-  top: 50px;
-  left: 48px;
-  width: 700px;
-  height: 400px;
-  background-color: white;
+  top: 40px;
+  left: 43px;
+  width: 712px;
+  height: 418px;
+  background-color: #E8E5DA;
   border: 0px solid gray;
 }
 
@@ -58,6 +58,19 @@
 #clear { width: 90px; }
 
 #spacer {
-  height: 45px;
+  width: 100%;
+  height: 90px;
+  border: 0px solid gray;
 }
 
+input {
+  position: relative;
+  width: 47%;
+  height: 40px;
+  margin: 5px;
+  margin-top: 20px;
+  font-size: 30px;
+  background-color: #E8E5DA;
+  background-color: white;
+  border-radius: 4px;
+}
