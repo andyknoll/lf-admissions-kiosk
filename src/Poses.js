@@ -5,26 +5,23 @@ import posed from 'react-pose';
 const durIn  = 500;
 const durOut = 250;
 
-const charPoses = {
-  exit: { 
+const CharPoses = {
+  charsHidden: { 
     opacity: 0,
     x: 0,
     scaleX: 2,
     scaleY: 2,
-    //rotateZ: -45,
     transition: {duration: 100, delay: 200} 
   },
-  enter: { 
+  charsVisible: { 
     opacity: 1,
     x: 0,
     scaleX: 1,
     scaleY: 1,
-    //rotateZ: 0,
     delay: ({ charIndex }) => charIndex * 50,
-    //transition: {duration: 500} 
-  }
+  },
+  initialPose: "charsHidden"
 };
-
 
 const ScreenPoses = posed.div({
   poseHidden: { 
@@ -68,6 +65,23 @@ const ParaPoses = posed.div({
     opacity: 1,
     y: 0,
     delay: durIn,
+    delayChildren: 50,
+    staggerChildren: 150,
+    transition: { ease: 'easeOut', duration: durIn } 
+  },
+  initialPose: "poseHidden"
+});
+
+// trying to stagger the h2 texts
+const h2Poses = posed.h2({
+  poseHidden: { 
+    opacity: 0,
+    y: 10,
+    transition: { ease: 'easeIn', duration: durOut } 
+  },
+  poseVisible: { 
+    opacity: 1,
+    y: 0,
     transition: { ease: 'easeOut', duration: durIn } 
   },
   initialPose: "poseHidden"
@@ -92,7 +106,6 @@ const TabletPoses = posed.div({
   initialPose: "poseHidden"
 });
 
-
 const KeysPoses = posed.div({
   poseHidden: { 
     opacity: 0,
@@ -112,12 +125,11 @@ const KeysPoses = posed.div({
 const KeyPoses = posed.div({
 });
 
-
 const PetsPoses = posed.div({
   poseHidden: { 
   },
   poseVisible: { 
-      delayChildren: 50,
+      delayChildren: 500,
       staggerChildren: 150
   },
   initialPose: "poseHidden",
@@ -140,13 +152,13 @@ const PetPoses = posed.div({
 const LogoPoses = posed.div({
   poseHidden: { 
     opacity: 0,
-    scaleY: 0,
+    scale: .5,
     delay: 0,
     transition: { ease: 'easeIn', duration: 250 } 
   },
   poseVisible: { 
-    opacity: .9,
-    scaleY: 1,
+    opacity: .8,
+    scale: 1,
     delay: 1000,
     transition: { ease: 'easeOut', duration: 500 } 
   },
@@ -155,9 +167,10 @@ const LogoPoses = posed.div({
 
 
 export {
-  charPoses,
+  CharPoses,
   ScreenPoses,
   ParaPoses,
+  h2Poses,
   TabletPoses,
   KeysPoses,
   KeyPoses,
@@ -165,4 +178,3 @@ export {
   PetPoses,
   LogoPoses
 }
-

@@ -15,7 +15,7 @@
     get KeyPad working
     Axios AJAX calls
     PHP/MySQL DB server
-    
+
 */
 
 import React from 'react';
@@ -45,6 +45,7 @@ class App extends React.Component {
     this.onKeyMouseDown = this.onKeyMouseDown.bind(this);         // must bind!
   }
 
+  // auto advance to Screen1
   componentDidMount() {
     setTimeout(() => { 
       this.setState({currScreen: HELLO_SCREEN}) 

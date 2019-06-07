@@ -4,7 +4,7 @@ import React from 'react';
 import SplitText from 'react-pose-text';
 import Keypad from './Keypad';
 import Pets from './Pets';
-import { ScreenPoses, ParaPoses, TabletPoses, charPoses, LogoPoses } from './Poses';
+import { ScreenPoses, ParaPoses, TabletPoses, CharPoses, LogoPoses } from './Poses';
 
 export const NO_SCREEN    = 0;
 export const HELLO_SCREEN = 1;
@@ -26,14 +26,12 @@ export const Screen1 = (props) => {
       className = "screen"
       pose={props.currScreen === HELLO_SCREEN ? "poseVisible" : "poseHidden"}>    
       <h1 className="welcome"> 
-        <SplitText charPoses={charPoses} 
-          pose={props.currScreen === HELLO_SCREEN ? "enter" : "exit"}
-          initialPose='exit'>
+        <SplitText charPoses={CharPoses} 
+          pose={props.currScreen === HELLO_SCREEN ? "charsVisible" : "charsHidden"}>
           Welcome to Lollypop Farm
         </SplitText>
       </h1>
-      <ParaPoses
-        pose = "poseVisible">    
+      <ParaPoses>    
         <br/>
         <h2>Thank you for choosing Lollypop Farm Admissions.</h2>
         <br/>
@@ -53,8 +51,7 @@ export const Screen2 = (props) => {
       className = "screen"
       pose={props.currScreen === NAME_SCREEN ? "poseVisible" : "poseHidden"}>    
       <h1>Please enter your name</h1>
-      <TabletPoses
-        pose = "poseVisible">    
+      <TabletPoses>    
         <Keypad onKeyMouseDown={props.onKeyMouseDown} appState={props.appState}></Keypad>
       </TabletPoses>
     </ScreenPoses>
@@ -69,10 +66,7 @@ export const Screen3 = (props) => {
       className = "screen"
       pose={props.currScreen === PET_SCREEN ? "poseVisible" : "poseHidden"}> 
       <h1>Please select your pet type</h1>
-      <ParaPoses
-        pose = "poseVisible">    
-        <Pets onPetMouseDown={props.onPetMouseDown} appState={props.appState}></Pets>
-      </ParaPoses>
+      <Pets onPetMouseDown={props.onPetMouseDown} appState={props.appState}></Pets>
     </ScreenPoses>
   );
 }
@@ -85,18 +79,19 @@ export const Screen4 = (props) => {
   let petName = pet.toLowerCase();
   // fix this so it does not depend on NAMES
   if (pet === "SMALL" || pet === "OTHER" || pet === "NONE") petName = "pet";
+
   return (
     <ScreenPoses
       className = "screen"
       pose={props.currScreen === CONF_SCREEN ? "poseVisible" : "poseHidden"}>    
       <h1>Thank you {fName}!</h1>
-      <ParaPoses
-        pose = "poseVisible">    
+      <ParaPoses>    
         <h2>An Admissions staff member will be with you<br/> shortly to help you with your {petName}.</h2>
-        <LogoPoses class="logo"></LogoPoses>
       </ParaPoses>
+      <LogoPoses class="logo"></LogoPoses>
     </ScreenPoses>
   );
 }
 
 
+export const Screens = [ Screen0, Screen1, Screen2, Screen3, Screen4 ];

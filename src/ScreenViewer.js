@@ -2,9 +2,10 @@
 
 import React from 'react';
 
-import { Screen0, Screen1, Screen2, Screen3, Screen4 } from './Screens';
+import { Screen0, Screen1, Screen2, Screen3, Screen4, Screens } from './Screens';
 
 export const ScreenViewer = (props) => {
+
   return (
     <div className="screen-viewer">
       <Screen0 currScreen={props.currScreen} appState={props.appState}></Screen0>
