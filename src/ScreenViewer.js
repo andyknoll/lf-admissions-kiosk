@@ -5,7 +5,6 @@ import React from 'react';
 import { Screen0, Screen1, Screen2, Screen3, Screen4, Screens } from './Screens';
 
 export const ScreenViewer = (props) => {
-
   return (
     <div className="screen-viewer">
       <Screen0 currScreen={props.currScreen} appState={props.appState}></Screen0>
@@ -17,3 +16,13 @@ export const ScreenViewer = (props) => {
   );
 }
   
+export const StateViewer = (props) => {
+  return (
+    <div className="state-viewer">
+      {props.appState.currScreen} &nbsp;
+      {props.appState.person.firstName} &nbsp;
+      {props.appState.person.lastName} &nbsp;
+      {props.appState.person.pet}
+    </div>
+  );
+}

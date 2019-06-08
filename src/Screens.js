@@ -33,11 +33,11 @@ export const Screen1 = (props) => {
       </h1>
       <ParaPoses>    
         <br/>
-        <h2>Thank you for choosing Lollypop Farm Admissions.</h2>
+        <h2>Thank you for visiting Lollypop Farm Admissions.</h2>
         <br/>
         <h2>We understand that this may be a difficult time<br/> for you and we are here to help.</h2>
         <br/>
-        <h2>Please use this kiosk to sign in and help your<br/>admission process run smoothly.</h2>
+        <h2>Please use this kiosk to sign in and help us<br/>with your admission process.</h2>
       </ParaPoses>
     </ScreenPoses>
   );

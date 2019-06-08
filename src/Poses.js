@@ -59,14 +59,15 @@ const ParaPoses = posed.div({
   poseHidden: { 
     opacity: 0,
     y: 10,
+    delay: durOut,
     transition: { ease: 'easeIn', duration: durOut } 
   },
   poseVisible: { 
     opacity: 1,
     y: 0,
     delay: durIn,
-    delayChildren: 50,
-    staggerChildren: 150,
+    delayChildren: 50,      // not working
+    staggerChildren: 150,   // not working
     transition: { ease: 'easeOut', duration: durIn } 
   },
   initialPose: "poseHidden"
@@ -116,8 +117,8 @@ const KeysPoses = posed.div({
   poseVisible: { 
     opacity: 1,
     scale: 1,
-    delay: 1000,
-    transition: { ease: 'easeIn', duration: 500 } 
+    delay: 1500,
+    transition: { ease: 'easeIn', duration: 250 } 
   },
   initialPose: "poseHidden"
 });

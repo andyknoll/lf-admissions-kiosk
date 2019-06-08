@@ -7,8 +7,11 @@ import './css/App.css';
 // npm install react-pose --save
 // https://popmotion.io/pose/learn/popmotion-get-started/
 
+// npm install axios
+
 // add to package.json:
-// "homepage": "http://localhost/2019/LOLLYPOP/react-pose-kiosk-1/"
+// "homepage": "http://localhost/2019/LOLLYPOP/react-pose-kiosk/" (or)
+// "homepage": "http://andyknoll.com/react-pose-kiosk/"
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
