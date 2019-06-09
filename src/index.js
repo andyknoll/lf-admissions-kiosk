@@ -11,7 +11,7 @@ import './css/App.css';
 
 // add to package.json:
 // "homepage": "http://localhost/2019/LOLLYPOP/react-pose-kiosk/" (or)
-// "homepage": "http://andyknoll.com/react-pose-kiosk/"
+// "homepage": "http://andyknoll.com/lollypop/clients/kiosk/"
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

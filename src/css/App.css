@@ -85,12 +85,12 @@ h2 {
   border: 5px solid #E8E5DA;
 }
 
-.state-viewer {
+.debug-viewer {
   position: absolute;
   top: 830px;
   width: 1000px;
-  height: 30px;
-  color: gray;
+  height: 24px;
+  color: black;
   font-size: 1em;
   border: 0px solid white;
 }

@@ -44,7 +44,7 @@ export const Screen1 = (props) => {
 }
 
 
-// NAME_SCREEN
+// NAME_SCREEN - uses Keypad
 export const Screen2 = (props) => {
   return (
     <ScreenPoses

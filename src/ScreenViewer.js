@@ -16,13 +16,13 @@ export const ScreenViewer = (props) => {
   );
 }
   
-export const StateViewer = (props) => {
+export const DebugViewer = (props) => {
   return (
-    <div className="state-viewer">
-      {props.appState.currScreen} &nbsp;
-      {props.appState.person.firstName} &nbsp;
-      {props.appState.person.lastName} &nbsp;
-      {props.appState.person.pet}
+    <div className="debug-viewer">
+      currScreen: {props.appState.currScreen} &nbsp;&nbsp;
+      firstName: {props.appState.person.firstName} &nbsp;&nbsp;
+      lastName: {props.appState.person.lastName} &nbsp;&nbsp;
+      pet: {props.appState.person.pet}
     </div>
   );
 }

@@ -16,25 +16,28 @@
     NextButton component
     enable Next button - canAdvance()
     get KeyPad working
-    Axios AJAX calls
+    Axios AJAX calls - wait for Promise?
+    upload actual Customer object
     PHP/MySQL DB server
 
   DONE:
 
-    return to Welcome Screen after 10 secs
+    return to Welcome Screen after 30 secs
     animations tweaked OK
 
 */
 
 import React from 'react';
-import { ScreenViewer, StateViewer } from './ScreenViewer';
-import { NO_SCREEN, HELLO_SCREEN, CONF_SCREEN } from './Screens'
+import { ScreenViewer, DebugViewer } from './ScreenViewer';
+import { NO_SCREEN, HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONF_SCREEN } from './Screens'
 import { PetNames, PET_NONE } from './Pets'
-import { getFakeCustomers } from  './Ajax'
+
+//import { getFakeCustomers } from  './Ajax'
+import { ajaxObject } from  './Ajax'
 
 import './css/App.css';
 
-const RESTART_TIME = 30000;   // 30 seconds per screen until restart
+const RESTART_TIME = 10000;   // 30 seconds per screen until restart
 
 class App extends React.Component {
 
@@ -45,8 +48,8 @@ class App extends React.Component {
 
     this.state = {
       person: {
-        firstName: "Andy",
-        lastName: "Knoll",
+        firstName: "",
+        lastName: "",
         pet: PetNames[PET_NONE]
       },
       currScreen: NO_SCREEN
@@ -62,9 +65,6 @@ class App extends React.Component {
     setTimeout(() => { 
       this.setState({currScreen: HELLO_SCREEN}) 
     }, 500);
-
-    /*
-    */
   }
 
   onNextButtonClick() {
@@ -72,6 +72,7 @@ class App extends React.Component {
     if (nextScreen > CONF_SCREEN) nextScreen = HELLO_SCREEN;   // wrap around to 1
     this.setState({currScreen: nextScreen}, () => {this.screenHasChanged()});
   }
+
 
   // called AFTER setState is completed
   screenHasChanged() {
@@ -81,11 +82,29 @@ class App extends React.Component {
 
     if (this.state.currScreen === HELLO_SCREEN) this.restartKiosk();    // clear state
 
+    if (this.state.currScreen === NAME_SCREEN) {
+    }
+
+    // fake Customer for now - until Keypad works
+    if (this.state.currScreen === PET_SCREEN) {
+      ajaxObject.getFakeCustomerName(this);   // updates App state - is this legal?
+    }
+
+    // make Ajax call at Confirmation Screen
     if (this.state.currScreen === CONF_SCREEN) {
-      getFakeCustomers();
+      //ajaxObject.getFakeCustomers(this.ajaxSuccess, this.ajaxError);
     }
   }
 
+  ajaxSuccess(obj) {
+    alert("APP - AJAX SUCCESS: " + obj);
+  }
+
+  ajaxError(error) {
+    alert("APP - AJAX ERROR: " + error);
+  }
+
+  
   // clear ENTIRE state here - person too!
   restartKiosk() {
     this.setState({
@@ -128,9 +147,9 @@ class App extends React.Component {
           onClick={this.onNextButtonClick}>
           Next
         </button>
-        <StateViewer 
+        <DebugViewer 
           appState={this.state}>
-        </StateViewer>
+        </DebugViewer>
       </div>
     );
   }
