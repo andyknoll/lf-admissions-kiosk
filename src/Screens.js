@@ -88,10 +88,8 @@ export const Screen4 = (props) => {
       <ParaPoses>    
         <h2>An Admissions staff member will be with you<br/> shortly to help you with your {petName}.</h2>
       </ParaPoses>
-      <LogoPoses class="logo"></LogoPoses>
+      <LogoPoses className="logo"></LogoPoses>
     </ScreenPoses>
   );
 }
 
-
-export const Screens = [ Screen0, Screen1, Screen2, Screen3, Screen4 ];

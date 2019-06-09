@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Screen0, Screen1, Screen2, Screen3, Screen4, Screens } from './Screens';
+import { Screen0, Screen1, Screen2, Screen3, Screen4 } from './Screens';
 
 export const ScreenViewer = (props) => {
   return (

@@ -28,7 +28,7 @@
 
 import React from 'react';
 import { ScreenViewer, StateViewer } from './ScreenViewer';
-import { NO_SCREEN, HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONF_SCREEN } from './Screens'
+import { NO_SCREEN, HELLO_SCREEN, CONF_SCREEN } from './Screens'
 import { PetNames, PET_NONE } from './Pets'
 import { getFakeCustomers } from  './Ajax'
 
