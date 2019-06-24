@@ -10,42 +10,104 @@ class Keypad extends React.Component {
   constructor(props) {
     super(props);
 
+    // must set in the constructor
     this.state = {
-      currKey: null,
-      fNameBuffer: "",
-      lNameBuffer: ""
+      keyId : "",
+      buffers: ["", ""],    // lName, fName
+      currBufferIdx: 0
     }
 
-    this.onKeyMouseDown = this.onKeyMouseDown.bind(this);         // must bind!
+    this.onKeyMouseDown = this.onKeyMouseDown.bind(this);       // must bind!
+    this.onFNameFocus   = this.onFNameFocus.bind(this);         // must bind!
+    this.onLNameFocus   = this.onLNameFocus.bind(this);         // must bind!
   }
 
 
+  // change buffers
+  setCurrBufferIdx(val) {
+    if (val < 0) val = 0;
+    if (val > 1) val = 1;
+    this.setState({currBufferIdx: val});
+  }
+
   // intercept the keyDown then pass it up to parent Screen
+  // fill the current buffer
+  // keyId sent up from <Key>
   onKeyMouseDown(keyId) {
     //alert("Keypad.onKeyMouseDown: " + keyId);
-    this.setState({currKey: keyId}, () => {this.stateHasChanged()});
-    this.props.onKeyMouseDown(keyId);    // call Screen's
+    const newBuffers = this.state.buffers;
+    let idx = this.state.currBufferIdx;
+    let buffer = this.state.buffers[idx];
+    let val = "";
+
+    switch (keyId) {
+      case "back" : 
+        val = buffer.substring(0, buffer.length-1);
+        break;
+      case "space" : 
+        val = buffer + " ";
+        break;
+      case "clear" : 
+        val = ""; 
+        break;
+      default : 
+        val = buffer + keyId;
+    }
+
+    newBuffers[idx] = val;    // swap entire array
+    this.setState({buffers: newBuffers, keyId: keyId}, () => {this.stateHasChanged()});
   }
 
   stateHasChanged() {
     //alert("Keypad.stateHasChanged");
-    console.log(this.state.currKey);
-    this.props.onKeyMouseDown(this.state.currKey);    // call Screen's
+    console.log(this.state.keyId);
+    this.props.onKeyMouseDown(this.state);    // call Screen's handler passing entire state
+  }
+
+  onFNameFocus = () => {
+    //alert("onFNameFocus");
+    this.setState({currBufferIdx: 0});
+  }
+
+  onLNameFocus = () => {
+    //alert("onLNameFocus");
+    this.setState({currBufferIdx: 1});
   }
 
 
   // clearBuffer(), etc...
 
   render() {
+    let fName = this.props.appState.person.firstName;
+    let lName = this.props.appState.person.lastName;
+
     return (
       <div className="keypad no-select">
         <KeysPoses pose="poseVisible" className="keys">    
+
           <div className="key-row">          
               <div id="spacer">
-              <input id="inputFName" placeholder="First Name"></input>
-              <input id="inputLName" placeholder="Last Name"></input>
+                <input
+                  readOnly
+                  type = "text"
+                  id = "input-fname" 
+                  className = "name-input"
+                  placeholder = "First Name"
+                  onClick = {this.onFNameFocus}
+                  value = {fName} 
+                />
+                <input
+                  readOnly
+                  type = "text"
+                  id = "input-lname" 
+                  className = "name-input"
+                  placeholder = "Last Name"
+                  onClick = {this.onLNameFocus}
+                  value = {lName} 
+                />
               </div>
           </div>
+
           <div className="key-row">          
               <Key id="Q" onKeyDown={this.onKeyMouseDown}></Key>
               <Key id="W" onKeyDown={this.onKeyMouseDown}></Key>

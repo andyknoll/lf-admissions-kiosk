@@ -45,6 +45,7 @@ export const Screen1 = (props) => {
 
 
 // NAME_SCREEN - uses Keypad
+// props.onKeyMouseDown is passed down from App
 export const Screen2 = (props) => {
   return (
     <ScreenPoses
@@ -61,11 +62,12 @@ export const Screen2 = (props) => {
 
 // PET_SCREEN
 export const Screen3 = (props) => {
+  let fName = props.appState.person.firstName;
   return (
     <ScreenPoses
       className = "screen"
       pose={props.currScreen === PET_SCREEN ? "poseVisible" : "poseHidden"}> 
-      <h1>Please select your pet type</h1>
+      <h1>Please select your pet type {fName}</h1>
       <Pets onPetMouseDown={props.onPetMouseDown} appState={props.appState}></Pets>
     </ScreenPoses>
   );
@@ -84,7 +86,7 @@ export const Screen4 = (props) => {
     <ScreenPoses
       className = "screen"
       pose={props.currScreen === CONF_SCREEN ? "poseVisible" : "poseHidden"}>    
-      <h1>Thank you {fName}!</h1>
+      <h1>THANK YOU {fName}!</h1>
       <ParaPoses>    
         <h2>An Admissions staff member will be with you<br/> shortly to help you with your {petName}.</h2>
       </ParaPoses>

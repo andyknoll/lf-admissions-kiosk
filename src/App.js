@@ -33,11 +33,11 @@ import { NO_SCREEN, HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONF_SCREEN } from '.
 import { PetNames, PET_NONE } from './Pets'
 
 //import { getFakeCustomers } from  './Ajax'
-import { ajaxObject } from  './Ajax'
+//import { ajaxObject } from  './Ajax'
 
 import './css/App.css';
 
-const RESTART_TIME = 10000;   // 30 seconds per screen until restart
+const RESTART_TIME = 1000000;   // 30 seconds per screen until restart
 
 class App extends React.Component {
 
@@ -68,11 +68,14 @@ class App extends React.Component {
   }
 
   onNextButtonClick() {
+    this.advanceScreen();
+  }
+
+  advanceScreen() {
     let nextScreen = this.state.currScreen + 1;
     if (nextScreen > CONF_SCREEN) nextScreen = HELLO_SCREEN;   // wrap around to 1
     this.setState({currScreen: nextScreen}, () => {this.screenHasChanged()});
   }
-
 
   // called AFTER setState is completed
   screenHasChanged() {
@@ -82,12 +85,12 @@ class App extends React.Component {
 
     if (this.state.currScreen === HELLO_SCREEN) this.restartKiosk();    // clear state
 
+    // fake Customer for now - until Keypad works
     if (this.state.currScreen === NAME_SCREEN) {
+      //ajaxObject.getFakeCustomerName(this);   // updates App state - is this legal?
     }
 
-    // fake Customer for now - until Keypad works
     if (this.state.currScreen === PET_SCREEN) {
-      ajaxObject.getFakeCustomerName(this);   // updates App state - is this legal?
     }
 
     // make Ajax call at Confirmation Screen
@@ -128,8 +131,13 @@ class App extends React.Component {
   }
 
   // this may not be needed up here - just the names
-  onKeyMouseDown(keyId) {
-    //alert("App.onKeyMouseDown: " + petId);
+  onKeyMouseDown(keypadState) {
+    let person = this.state.person;
+    let currIdx = keypadState.currBufferIdx;
+    let val = keypadState.buffers[currIdx];               // buffers [0] or [1]
+    if (currIdx === 0) this.setState({person: {...person, firstName: val}});
+    if (currIdx === 1) this.setState({person: {...person, lastName: val}});
+    //alert("App.onKeyMouseDown: " + val);
   }
 
 
@@ -142,11 +150,10 @@ class App extends React.Component {
           onPetMouseDown={this.onPetMouseDown}
           onKeyMouseDown={this.onKeyMouseDown}>
         </ScreenViewer>
-        <button 
+        <div 
           className="next-button" 
           onClick={this.onNextButtonClick}>
-          Next
-        </button>
+        </div>
         <DebugViewer 
           appState={this.state}>
         </DebugViewer>

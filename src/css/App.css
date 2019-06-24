@@ -16,7 +16,7 @@ body {
 }
 
 h1 {
-  font-size: 3.5em;
+  font-size: 3em;
   text-shadow: 2px 2px 2px black;
 }
 
@@ -39,6 +39,7 @@ h2 {
   border: 0px solid red;
 }
 
+/*
 .next-button {
   position: relative;
   margin: auto;
@@ -54,7 +55,32 @@ h2 {
   border-radius: 100%;
   box-shadow: 2px 2px 2px black;
   text-shadow: 1px 1px 1px black;
+  outline: none;
+  background-image: url("../img/next-button.png");
 }
+*/
+
+.next-button {
+  position: relative;
+  margin: auto;
+  margin-top: 20px;
+  top: 670px;
+  width: 125px;
+  height: 125px;
+  outline: none;
+  border: 2px solid #006050;
+  border-radius: 100%;
+  background-image: url("../img/next-button-2.png");
+  background-size: contain;
+  opacity: 1;
+}
+
+.next-button:hover {
+  border: 2px solid #E8E5DA;
+}
+
+
+
 
 /* MOVE THESE TO ScreenViewer.css */
 
@@ -77,21 +103,25 @@ h2 {
 .logo {
   margin: auto;
   margin-top: 40px;
-  width: 600px;
-  height: 338px;
+  width: 400px;
+  height: 225px;
   background-repeat: no-repeat;
   background-image: url("../img/lollypop-farm-logo-600.jpg");
+  background-size: contain;
   border-radius: 30px;
-  border: 5px solid #E8E5DA;
+  border: 0px solid #E8E5DA;
+  box-shadow: 2px 2px 2px black;
 }
 
 .debug-viewer {
   position: absolute;
-  top: 830px;
-  width: 1000px;
-  height: 24px;
+  top: 100px;
+  left: -300px;
+  width: 200px;
+  height: 200px;
   color: black;
   font-size: 1em;
+  text-align: left;
   border: 0px solid white;
 }
 

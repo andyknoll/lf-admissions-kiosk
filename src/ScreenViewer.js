@@ -19,10 +19,10 @@ export const ScreenViewer = (props) => {
 export const DebugViewer = (props) => {
   return (
     <div className="debug-viewer">
-      currScreen: {props.appState.currScreen} &nbsp;&nbsp;
-      firstName: {props.appState.person.firstName} &nbsp;&nbsp;
-      lastName: {props.appState.person.lastName} &nbsp;&nbsp;
-      pet: {props.appState.person.pet}
+      currScreen: {props.appState.currScreen} <br/>
+      firstName: {props.appState.person.firstName} <br/>
+      lastName: {props.appState.person.lastName} <br/>
+      pet: {props.appState.person.pet} <br/>
     </div>
   );
 }

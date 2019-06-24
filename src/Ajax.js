@@ -2,36 +2,17 @@
 
 import axios from 'axios';
 
-const url = "http://localhost/2019/LOLLYPOP/servers/server-6/";   // must include final "/"
-//const url = "http://andyknoll.com/lollypop/servers/server-6/";
+const url = "http://localhost/2019/LOLLYPOP/servers/admissions-queue/";   // must include final "/"
+//const url = "http://andyknoll.com/lollypop/servers/admissions-queue/";
+
+const headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+};
+
 
 export const ajaxObject = {
-
-    getFakeCustomers(onSuccess, onError) {
-        let req = {
-            "rpc": "getTestCustomers",
-            "params": {"count":1},
-            "objects": []
-        };
-        let reqJson = JSON.stringify(req);
-        let headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        };
-
-        axios.post(url, reqJson, headers)
-            .then(response => {
-                console.log("AJAX OK: \n");
-                console.log(response.data);
-                onSuccess(response.data);
-            })
-            .catch(error => {
-                console.log("AJAX ERROR: \n");
-                console.log(error);
-                onError(error);
-            });
-    },
 
     getFakeCustomerName(app) {
         let person = app.state.person;
@@ -42,11 +23,6 @@ export const ajaxObject = {
             "objects": []
         };
         let reqJson = JSON.stringify(req);
-        let headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        };
 
         axios.post(url, reqJson, headers)
             .then(response => {
