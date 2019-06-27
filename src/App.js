@@ -13,7 +13,7 @@
 
   TO DO:
   
-    enable Next button - canAdvance()
+    enable Next button - canAdvance() (started)
     Axios AJAX calls - wait for Promise?
     upload actual Customer object
     PHP/MySQL DB server
@@ -24,6 +24,7 @@
     animations tweaked OK
     NextButton component
     get KeyPad working
+    add repo to Guthub
 
 */
 
@@ -126,6 +127,20 @@ class App extends React.Component {
     if (currIdx === 1) this.setState({person: {...person, lastName: val}});
   }
 
+  // use switch here... get from each screen?
+  canAdvance() {
+    return true;
+  }
+
+  // disabled until user can advance
+  getNextButtonCss() {
+    if (this.canAdvance()) {
+      return "next-button";
+    } else {
+      return "next-button next-disabled";
+    }
+  }
+
 
   render() {
     return (
@@ -137,7 +152,9 @@ class App extends React.Component {
           onKeyMouseDown={this.onKeyMouseDown}>
         </ScreenViewer>
         <NextButton
-          onClickMe={this.onNextButtonClick}>
+          onClickMe={this.onNextButtonClick}
+          cssClass={this.getNextButtonCss()}
+          isDisabled={!this.canAdvance()}>
         </NextButton>
         <DebugViewer 
           appState={this.state}>

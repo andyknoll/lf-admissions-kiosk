@@ -5,10 +5,11 @@ import './css/App.css';
 
 export const NextButton = (props) => {
     return (
-        <div 
-            className="next-button"
-            onClick = {props.onClickMe}
+        <button 
+            className={props.cssClass}
+            onClick={props.onClickMe}
+            disabled={props.isDisabled}
         >
-        </div>
+        </button>
     );
 }
