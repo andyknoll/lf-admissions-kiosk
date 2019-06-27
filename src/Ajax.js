@@ -11,8 +11,8 @@ const headers = {
     'Access-Control-Allow-Origin': '*'
 };
 
-
-export const ajaxObject = {
+// this is not created with "new"
+export const AjaxObject = {
 
     getFakeCustomerName(app) {
         let person = app.state.person;
@@ -35,6 +35,15 @@ export const ajaxObject = {
                 console.log(error);
                 alert("ajaxObject - AJAX ERROR: " + error);
             });
+    },
+
+    addCustomer(cust) {
+        let info = "";
+        info += "AjaxObject.addCustomer \n";
+        info += cust.firstName + "\n";
+        info += cust.lastName + "\n";
+        info += cust.pet + "\n\n";
+        console.log(info);
     }
 
 }
