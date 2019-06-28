@@ -28,7 +28,7 @@
 */
 
 import React from 'react';
-import { ScreenViewer, DebugViewer } from './ScreenViewer';
+import { ScreenManager, ScreenViewer, DebugViewer } from './ScreenViewer';
 import { NO_SCREEN, HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONF_SCREEN } from './Screens'
 import { PetNames, PET_NONE } from './Pets'
 
@@ -44,8 +44,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.intervalId = 0;
-
     this.state = {
       person: {
         firstName: "",
@@ -54,6 +52,9 @@ class App extends React.Component {
       },
       currScreen: NO_SCREEN
     }
+
+    this.screenMgr = new ScreenManager();                 // contained object!  :-)
+    this.intervalId = 0;
 
     this.onNextButtonClick = this.onNextButtonClick.bind(this);   // must bind!
     this.onPetMouseDown = this.onPetMouseDown.bind(this);         // must bind!
@@ -72,8 +73,9 @@ class App extends React.Component {
   }
 
   advanceScreen() {
-    let nextScreen = this.state.currScreen + 1;
-    if (nextScreen > CONF_SCREEN) nextScreen = HELLO_SCREEN;   // wrap around to 1
+    let nextScreen = this.screenMgr.determineNextScreen(this.state.currScreen);
+    //let nextScreen = this.state.currScreen + 1;
+    //if (nextScreen > CONF_SCREEN) nextScreen = HELLO_SCREEN;   // wrap around to 1
     this.setState({currScreen: nextScreen}, () => {this.screenHasChanged()});
   }
 
@@ -99,6 +101,7 @@ class App extends React.Component {
     }
   }
 
+  /*
   ajaxSuccess(obj) {
     alert("APP - AJAX SUCCESS: " + obj);
   }
@@ -106,6 +109,7 @@ class App extends React.Component {
   ajaxError(error) {
     alert("APP - AJAX ERROR: " + error);
   }
+  */
 
   
   // clear ENTIRE state here - person too!

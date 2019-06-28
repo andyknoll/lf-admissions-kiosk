@@ -3,6 +3,24 @@
 import React from 'react';
 
 import { Screen0, Screen1, Screen2, Screen3, Screen4 } from './Screens';
+import { NO_SCREEN, HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONF_SCREEN } from './Screens'
+
+
+export class ScreenManager {
+
+  // a more controlled way - no need for wrapping
+  determineNextScreen(currScreen) {
+    switch (currScreen) {
+      case HELLO_SCREEN : return NAME_SCREEN;
+      case NAME_SCREEN  : return PET_SCREEN;
+      case PET_SCREEN   : return CONF_SCREEN;
+      case CONF_SCREEN  : return HELLO_SCREEN;
+    }
+  }
+
+}
+
+
 
 export const ScreenViewer = (props) => {
   return (
