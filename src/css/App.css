@@ -39,26 +39,9 @@ h2 {
   border: 0px solid red;
 }
 
-/*
-.next-button {
-  position: relative;
-  margin: auto;
-  margin-top: 20px;
-  top: 670px;
-  width: 125px;
-  height: 125px;
-  font-size: 2em;
-  color: #E8E5DA;
-  color: #006156;
-  background-color: #006156;
-  background-color: #E8E5DA;
-  border-radius: 100%;
-  box-shadow: 2px 2px 2px black;
-  text-shadow: 1px 1px 1px black;
-  outline: none;
-  background-image: url("../img/next-button.png");
-}
-*/
+
+
+/* MOVE THESE TO NextButton.css */
 
 .next-button {
   position: relative;
@@ -74,6 +57,11 @@ h2 {
   background-size: contain;
   opacity: 1;
 }
+
+.next-disabled {
+  opacity: .1;
+}
+
 
 .next-button:hover {
   border: 2px solid #E8E5DA;
