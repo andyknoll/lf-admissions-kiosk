@@ -17,6 +17,7 @@ export const AjaxObject = {
     getFakeCustomerName(app) {
         let person = app.state.person;
         let cust = null;
+        // use Request and Response objects here?
         let req = {
             "rpc": "getTestCustomerName",
             "params": {},

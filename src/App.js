@@ -31,6 +31,7 @@
 
 import React from 'react';
 import { ScreenManager, ScreenViewer, DebugViewer } from './ScreenViewer';
+//import { useCanAdvance } from './ScreenViewer';
 import { NO_SCREEN, HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONF_SCREEN } from './Screens'
 import { PetNames, PET_NONE } from './Pets'
 import { NextButton } from './NextButton'
@@ -53,7 +54,7 @@ class App extends React.Component {
       currScreen: NO_SCREEN
     }
 
-    //this.screenMgr = new ScreenManager();                 // contained object!  :-)
+    this.screenMgr = new ScreenManager();                 // contained object!  :-)
     this.intervalId = 0;
 
     this.onNextButtonClick = this.onNextButtonClick.bind(this);   // must bind!
@@ -70,8 +71,8 @@ class App extends React.Component {
 
   onNextButtonClick() {
     // static class methods work too!
-    let nextScreen = ScreenManager.determineNextScreen(this.state.currScreen);
-    //let nextScreen = this.screenMgr.determineNextScreen(this.state.currScreen);
+    // let nextScreen = ScreenManager.determineNextScreen(this.state.currScreen);
+    let nextScreen = this.screenMgr.determineNextScreen(this.state.currScreen);
     this.setState({currScreen: nextScreen}, () => {this.screenHasChanged()});
   }
 
@@ -119,7 +120,7 @@ class App extends React.Component {
     this.setState({person: {...person, pet: PetNames[petId]}});
   }
 
-  // this may not be needed up here - just the names
+  // set first or last name depending on Keypad buffer
   onKeyMouseDown(keypadState) {
     let person = this.state.person;
     let currIdx = keypadState.currBufferIdx;
@@ -130,7 +131,9 @@ class App extends React.Component {
 
   // use switch here... get from each screen?
   canAdvance() {
-    return true;
+    // return ScreenManager.screenCanAdvance(this.state.currScreen);    // static method
+    return this.screenMgr.screenCanAdvance(this.state);                 // instance method
+    // return useCanAdvance(this.state);                                // custom hook
   }
 
   // disabled until user can advance

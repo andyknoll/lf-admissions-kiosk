@@ -13,14 +13,19 @@ export const PET_SCREEN   = 3;
 export const CONF_SCREEN  = 4;
 
 
+
+
 // NO_SCREEN
 export const Screen0 = (props) => {
   return <div></div>;
 }
 
 
-// WELCOME_SCREEN
+// HELLO_SCREEN
 export const Screen1 = (props) => {
+  // use a custom hook here
+  // const canAdvance = useCanAdvance(props.currScreen);
+
   return (
     <ScreenPoses
       className = "screen"

@@ -28,7 +28,7 @@
 }
 
 .pet-card:hover {
-  border: 4px solid #E8E5DA;
+  border: 4px solid #cccccc;
 }
 
 
@@ -39,7 +39,7 @@
   height: 210px;
   margin: 10px;
   border-radius: 10px;
-  border: 4px solid gold;
+  border: 4px solid white;
   box-shadow: 2px 2px 2px black;
   overflow: hidden;
 }
