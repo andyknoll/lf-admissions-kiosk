@@ -13,10 +13,11 @@
 
   TO DO:
   
-    enable Next button - canAdvance() (started)
     Axios AJAX calls - wait for Promise?
     upload actual Customer object
     PHP/MySQL DB server
+    NextButton and ParaPoses not working
+    try hooks
 
   DONE:
 
@@ -26,12 +27,12 @@
     get KeyPad working
     add repo to Guthub
     pulled to PC-B1
+    enable Next button - canAdvance() (started)
 
 */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ScreenManager, ScreenViewer, DebugViewer } from './ScreenViewer';
-//import { useCanAdvance } from './ScreenViewer';
 import { NO_SCREEN, HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONF_SCREEN } from './Screens'
 import { PetNames, PET_NONE } from './Pets'
 import { NextButton } from './NextButton'
@@ -40,8 +41,32 @@ import './css/App.css';
 
 const RESTART_TIME = 1000000;   // 30 seconds per screen until restart
 
-class App extends React.Component {
 
+// CUSTOM HOOK! this is wrong though...
+// errors when I try to call setScreenIsLocked()
+// right now this is no different than a boolean function
+export const useScreenIsLocked = (state) => {
+  const [screenIsLocked, setScreenIsLocked] = useState(false);
+
+  switch (state.currScreen) {
+    case HELLO_SCREEN : 
+      //setScreenIsLocked(false);
+      //return screenIsLocked;
+      return false;
+    case NAME_SCREEN  : 
+      return state.person.firstName === "" || state.person.lastName === "";
+    case PET_SCREEN   : 
+      return state.person.pet === PetNames[PET_NONE];
+    case CONF_SCREEN  : 
+      return false;
+    default :
+      return false;
+  }
+}
+
+
+
+class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -61,6 +86,19 @@ class App extends React.Component {
     this.onPetMouseDown = this.onPetMouseDown.bind(this);         // must bind!
     this.onKeyMouseDown = this.onKeyMouseDown.bind(this);         // must bind!
   }
+
+  // clear ENTIRE state here - person too!
+  restartKiosk() {
+    this.setState({
+      person: {
+        firstName: "",
+        lastName: "",
+        pet: PetNames[PET_NONE]
+      },
+      currScreen: HELLO_SCREEN
+    }) 
+  }
+
 
   // auto advance to Screen1
   componentDidMount() {
@@ -99,20 +137,6 @@ class App extends React.Component {
     }
   }
 
-  
-  // clear ENTIRE state here - person too!
-  restartKiosk() {
-    this.setState({
-      person: {
-        firstName: "",
-        lastName: "",
-        pet: PetNames[PET_NONE]
-      },
-      currScreen: HELLO_SCREEN
-    }) 
-  }
-
-
   // pass this all the way down to Pets screen!
   onPetMouseDown(petId) {
     let person = this.state.person;
@@ -129,36 +153,18 @@ class App extends React.Component {
     if (currIdx === 1) this.setState({person: {...person, lastName: val}});
   }
 
-  // use switch here... get from each screen?
-  canAdvance() {
-    // return ScreenManager.screenCanAdvance(this.state.currScreen);    // static method
-    return this.screenMgr.screenCanAdvance(this.state);                 // instance method
-    // return useCanAdvance(this.state);                                // custom hook
-  }
-
-  // disabled until user can advance
-  getNextButtonCss() {
-    if (this.canAdvance()) {
-      return "next-button";
-    } else {
-      return "next-button next-disabled";
-    }
-  }
-
 
   render() {
     return (
       <div className="app">
         <ScreenViewer 
-          currScreen={this.state.currScreen}
           appState={this.state}
           onPetMouseDown={this.onPetMouseDown}
           onKeyMouseDown={this.onKeyMouseDown}>
         </ScreenViewer>
         <NextButton
-          onClickMe={this.onNextButtonClick}
-          cssClass={this.getNextButtonCss()}
-          isDisabled={!this.canAdvance()}>
+          appState={this.state}
+          onClickMe={this.onNextButtonClick}>
         </NextButton>
         <DebugViewer 
           appState={this.state}>

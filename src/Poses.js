@@ -166,6 +166,21 @@ const LogoPoses = posed.div({
   initialPose: "poseHidden"
 });
 
+const NextButtonPoses = posed.div({
+  poseHidden: { 
+    x: -100,
+    scale: .5,
+    delay: 0,
+    transition: { ease: 'easeIn', duration: 250 } 
+  },  
+  poseVisible: { 
+    x: 0,
+    scale: 1,
+    transition: { ease: 'easeOut', duration: 1000 } 
+  },
+  initialPose: "poseHidden"
+});
+
 
 export {
   CharPoses,
@@ -177,5 +192,6 @@ export {
   KeyPoses,
   PetsPoses,
   PetPoses,
-  LogoPoses
+  LogoPoses,
+  NextButtonPoses
 }
