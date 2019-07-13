@@ -129,7 +129,7 @@ class App extends React.Component {
       case PET_SCREEN :
         break;
       case CONF_SCREEN :
-        // make Ajax call at Confirmation Screen
+        // make single Ajax call at Confirmation Screen
         AjaxObject.addCustomer(this.state.person);
         break;
       default :
