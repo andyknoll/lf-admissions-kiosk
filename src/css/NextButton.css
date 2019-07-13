@@ -1,0 +1,26 @@
+/* NextButton.css */
+
+.next-button {
+  position: relative;
+  margin: auto;
+  margin-top: 20px;
+  top: 670px;
+  width: 125px;
+  height: 125px;
+  outline: none;
+  border: 2px solid #006050;
+  border-radius: 100%;
+  background-image: url("../img/next-button-2.png");
+  background-size: contain;
+  opacity: 1;
+}
+
+.next-disabled {
+  opacity: .25;
+}
+
+
+.next-button:hover {
+  border: 2px solid #E8E5DA;
+}
+

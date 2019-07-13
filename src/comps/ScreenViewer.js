@@ -4,9 +4,11 @@ import React from 'react';
 
 import { Screen0, Screen1, Screen2, Screen3, Screen4 } from './Screens';
 import { HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONF_SCREEN } from './Screens';   // int ids
-import { PetNames, PET_NONE } from './Pets'
+
+import '../css/ScreenViewer.css';
 
 
+// this is a class - not a component
 export class ScreenManager {
   constructor() {
     this.screens = [Screen0, Screen1, Screen2, Screen3, Screen4];

@@ -1,0 +1,17 @@
+/* ScreenViewer.css */
+
+.screen-viewer {
+  position: absolute;
+  width: 1000px;
+  height: 650px;
+  border: 0px solid white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.screen {
+  position: absolute;
+  width: 1000px;
+  height: 700px;
+  opacity: 0;
+}

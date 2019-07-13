@@ -36,8 +36,9 @@ import { ScreenManager, ScreenViewer, DebugViewer } from './ScreenViewer';
 import { NO_SCREEN, HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONF_SCREEN } from './Screens'
 import { PetNames, PET_NONE } from './Pets'
 import { NextButton } from './NextButton'
-import { AjaxObject } from './Ajax'
-import './css/App.css';
+import { AjaxObject } from '../utils/Ajax'
+
+import '../css/App.css';
 
 const RESTART_TIME = 1000000;   // 30 seconds per screen until restart
 

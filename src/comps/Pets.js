@@ -1,8 +1,9 @@
 // Pets.js
 
 import React from 'react';
-import { PetsPoses, PetPoses } from './Poses';
-import './css/Pets.css';
+import { PetsPoses, PetPoses } from '../utils/Poses';
+
+import '../css/Pets.css';
 
 export const PetNames = ["NONE", "DOG", "CAT", "RABBIT", "BIRD", "SMALL", "OTHER"];
 export const PET_NONE   = 0;

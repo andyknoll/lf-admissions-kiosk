@@ -4,7 +4,7 @@ import React from 'react';
 import SplitText from 'react-pose-text';
 import Keypad from './Keypad';
 import Pets from './Pets';
-import { ScreenPoses, ParaPoses, TabletPoses, CharPoses, LogoPoses } from './Poses';
+import { ScreenPoses, ParaPoses, TabletPoses, CharPoses, LogoPoses } from '../utils/Poses';
 
 export const NO_SCREEN    = 0;
 export const HELLO_SCREEN = 1;
@@ -67,7 +67,7 @@ export const Screen2 = (props) => {
 
 // PET_SCREEN
 export const Screen3 = (props) => {
-  let fName = props.appState.person.firstName;
+  let fName = formatName(props.appState.person.firstName);
   return (
     <ScreenPoses
       className = "screen"
@@ -81,9 +81,11 @@ export const Screen3 = (props) => {
 
 // CONF_SCREEN
 export const Screen4 = (props) => {
-  let fName = props.appState.person.firstName;
+  let fName = formatName(props.appState.person.firstName);
+  let thanks = "Thank You " + fName;    // re-renders!
   let pet = props.appState.person.pet;
   let petName = pet.toLowerCase();
+
   // fix this so it does not depend on NAMES
   if (pet === "SMALL" || pet === "OTHER" || pet === "NONE") petName = "pet";
 
@@ -91,7 +93,7 @@ export const Screen4 = (props) => {
     <ScreenPoses
       className = "screen"
       pose={props.currScreen === CONF_SCREEN ? "poseVisible" : "poseHidden"}>    
-      <h1>THANK YOU {fName}!</h1>
+      <h1>{thanks}</h1>
       <ParaPoses>    
         <h2>An Admissions staff member will be with you<br/> shortly to help you with your {petName}.</h2>
       </ParaPoses>
@@ -100,3 +102,17 @@ export const Screen4 = (props) => {
   );
 }
 
+// capitalize first letter - could be Mary Beth, etc.
+const formatName = (name) => {
+  let parts = name.toLowerCase().split(" ");
+  let newName = "";
+  for (let i = 0; i < parts.length; i++) {
+    newName += capitalize(parts[i]) + " ";
+  }
+  return newName.trim();
+}
+
+const capitalize = (s) => {
+  if (typeof s !== 'string') return ''
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}

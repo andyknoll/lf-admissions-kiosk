@@ -1,6 +1,6 @@
 {
-  "name": "react-pose-kiosk-1",
-  "version": "0.1.0",
+  "name": "lf-admissions-kiosk",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
@@ -31,5 +31,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://andyknoll.com/lollypop/clients/kiosk"
+  "homepage": "http://andyknoll.com/lollypop/clients/admissions-kiosk"
 }

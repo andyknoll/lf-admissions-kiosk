@@ -1,9 +1,9 @@
 // Keypad.js
 
 import React from 'react';
-import './css/Keypad.css';
-import { KeysPoses, KeyPoses } from './Poses';
+import { KeysPoses, KeyPoses } from '../utils/Poses';
 
+import '../css/Keypad.css';
 
 class Keypad extends React.Component {
 

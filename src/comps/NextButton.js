@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { useScreenIsLocked } from './App';
-import { NextButtonPoses } from './Poses';
+import { NextButtonPoses } from '../utils/Poses';
 
-import './css/App.css';
+import '../css/NextButton.css';
 
 export const NextButton = (props) => {
     const isDisabled = useScreenIsLocked(props.appState);       // custom hook
