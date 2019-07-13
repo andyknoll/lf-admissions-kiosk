@@ -1,10 +1,11 @@
 /* ScreenViewer.css */
 
 .screen-viewer {
-  position: absolute;
+  position: relative;
+  margin: auto;
   width: 1000px;
   height: 650px;
-  border: 0px solid white;
   border-radius: 10px;
   overflow: hidden;
+  border: 0px solid white;
 }

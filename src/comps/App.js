@@ -159,6 +159,12 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
+        {/* 
+        <header className="app-header">
+          <h1 className="app-title">Lollypop Farm Admissions Kiosk</h1>
+        </header>
+        */}
+        
         <ScreenViewer 
           appState={this.state}
           onPetMouseDown={this.onPetMouseDown}
@@ -171,6 +177,7 @@ class App extends React.Component {
         <DebugViewer 
           appState={this.state}>
         </DebugViewer>
+
       </div>
     );
   }

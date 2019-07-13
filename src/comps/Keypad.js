@@ -54,28 +54,23 @@ class Keypad extends React.Component {
         val = buffer + keyId;
     }
 
-    newBuffers[idx] = val;    // swap entire array
+    newBuffers[idx] = val;    // write into new array
     this.setState({buffers: newBuffers, keyId: keyId}, () => {this.stateHasChanged()});
   }
 
+  // this may not be needed...
   stateHasChanged() {
-    //alert("Keypad.stateHasChanged");
     console.log(this.state.keyId);
     this.props.onKeyMouseDown(this.state);    // call Screen's handler passing entire state
   }
 
   onFNameFocus = () => {
-    //alert("onFNameFocus");
     this.setState({currBufferIdx: 0});
   }
 
   onLNameFocus = () => {
-    //alert("onLNameFocus");
     this.setState({currBufferIdx: 1});
   }
-
-
-  // clearBuffer(), etc...
 
   render() {
     let fName = this.props.appState.person.firstName;

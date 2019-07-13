@@ -1,9 +1,9 @@
+/* App.css */
 
 html {
   color: #E8E5DA;
-  background-color: #006156;
+  background-color: #003333;
 }
-
 
 body {
   margin: 0;
@@ -34,9 +34,29 @@ h2 {
   width: 1000px;
   height: 800px;
   text-align: center;
-  background-color: #005A50;
-  background-color: #006156;
-  border: 0px solid red;
+
+  padding: 0 0px;
+  width: 100%;
+  margin: auto;
+  border: 0px solid white;
+
+}
+
+.app-header {
+  height: 100px;
+  width: 100%;
+  margin: auto;
+  color: white;
+  background-color: #044;
+  padding-top: 10px;
+  font-size: 1.25em;
+  font-weight: normal;
+  text-align: center;
+  border: 0px solid black;
+}
+
+.app-title {
+  font-size: 1.75em;
 }
 
 .logo {
@@ -54,7 +74,7 @@ h2 {
 
 .debug-viewer {
   position: absolute;
-  top: 100px;
+  top: 150px;
   left: -300px;
   width: 200px;
   color: white;
