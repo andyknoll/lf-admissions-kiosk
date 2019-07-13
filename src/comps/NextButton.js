@@ -14,7 +14,7 @@ export const NextButton = (props) => {
             <button 
                 className={isDisabled ? "next-button next-disabled" : "next-button"}
                 disabled={isDisabled}
-                onClick={props.onClickMe}>
+                onClick={props.onNextButtonClick}>
             </button>
         </NextButtonPoses>
     );

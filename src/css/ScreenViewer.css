@@ -8,10 +8,3 @@
   border-radius: 10px;
   overflow: hidden;
 }
-
-.screen {
-  position: absolute;
-  width: 1000px;
-  height: 700px;
-  opacity: 0;
-}

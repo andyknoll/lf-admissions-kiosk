@@ -6,11 +6,13 @@ import Keypad from './Keypad';
 import Pets from './Pets';
 import { ScreenPoses, ParaPoses, TabletPoses, CharPoses, LogoPoses } from '../utils/Poses';
 
-export const NO_SCREEN    = 0;
-export const HELLO_SCREEN = 1;
-export const NAME_SCREEN  = 2;
-export const PET_SCREEN   = 3;
-export const CONF_SCREEN  = 4;
+import '../css/Screens.css';
+
+export const NO_SCREEN      = 0;
+export const HELLO_SCREEN   = 1;
+export const NAME_SCREEN    = 2;
+export const PET_SCREEN     = 3;
+export const CONFIRM_SCREEN = 4;
 
 
 
@@ -79,7 +81,7 @@ export const Screen3 = (props) => {
 }
 
 
-// CONF_SCREEN
+// CONFIRM_SCREEN
 export const Screen4 = (props) => {
   let fName = formatName(props.appState.person.firstName);
   let thanks = "Thank You " + fName;    // re-renders!
@@ -92,15 +94,18 @@ export const Screen4 = (props) => {
   return (
     <ScreenPoses
       className = "screen"
-      pose={props.currScreen === CONF_SCREEN ? "poseVisible" : "poseHidden"}>    
+      pose={props.currScreen === CONFIRM_SCREEN ? "poseVisible" : "poseHidden"}>    
       <h1>{thanks}</h1>
       <ParaPoses>    
         <h2>An Admissions staff member will be with you<br/> shortly to help you with your {petName}.</h2>
       </ParaPoses>
       <LogoPoses className="logo"></LogoPoses>
+      <div className="message-area">{props.appState.ajaxMessage}</div>
     </ScreenPoses>
   );
 }
+
+// PUT THESE IN utils.js!
 
 // capitalize first letter - could be Mary Beth, etc.
 const formatName = (name) => {

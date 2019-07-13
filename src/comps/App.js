@@ -31,23 +31,25 @@
 
 */
 
-import React, { useState } from 'react';
+import React from 'react';
+//import { useState } from 'react';
 import { ScreenManager, ScreenViewer, DebugViewer } from './ScreenViewer';
-import { NO_SCREEN, HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONF_SCREEN } from './Screens'
+import { NO_SCREEN, HELLO_SCREEN, NAME_SCREEN, PET_SCREEN, CONFIRM_SCREEN } from './Screens'
 import { PetNames, PET_NONE } from './Pets'
 import { NextButton } from './NextButton'
 import { AjaxObject } from '../utils/Ajax'
+import { Config } from '../Config'
 
 import '../css/App.css';
 
-const RESTART_TIME = 1000000;   // 30 seconds per screen until restart
+//const RESTART_TIME = 60000;   // 60 seconds per screen until restart
 
 
 // CUSTOM HOOK! this is wrong though...
 // errors when I try to call setScreenIsLocked()
 // right now this is no different than a boolean function
 export const useScreenIsLocked = (state) => {
-  const [screenIsLocked, setScreenIsLocked] = useState(false);
+  //const [screenIsLocked, setScreenIsLocked] = useState(false);
 
   switch (state.currScreen) {
     case HELLO_SCREEN : 
@@ -58,28 +60,29 @@ export const useScreenIsLocked = (state) => {
       return state.person.firstName === "" || state.person.lastName === "";
     case PET_SCREEN   : 
       return state.person.pet === PetNames[PET_NONE];
-    case CONF_SCREEN  : 
+    case CONFIRM_SCREEN  : 
       return false;
     default :
       return false;
   }
 }
 
+const INITIAL_STATE = {
+  person: {
+    firstName: "",
+    lastName: "",
+    pet: PetNames[PET_NONE]
+  },
+  currScreen: NO_SCREEN,
+  ajaxMessage: ""
+};
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      person: {
-        firstName: "",
-        lastName: "",
-        pet: PetNames[PET_NONE]
-      },
-      currScreen: NO_SCREEN
-    }
-
+    this.state = INITIAL_STATE;
     this.screenMgr = new ScreenManager();                 // contained object!  :-)
     this.intervalId = 0;
 
@@ -90,21 +93,15 @@ class App extends React.Component {
 
   // clear ENTIRE state here - person too!
   restartKiosk() {
-    this.setState({
-      person: {
-        firstName: "",
-        lastName: "",
-        pet: PetNames[PET_NONE]
-      },
-      currScreen: HELLO_SCREEN
-    }) 
+    this.setState(INITIAL_STATE);
+    this.setState({currScreen: HELLO_SCREEN});
   }
 
 
   // auto advance to Screen1
   componentDidMount() {
     setTimeout(() => { 
-      this.setState({currScreen: HELLO_SCREEN}) 
+      this.restartKiosk() 
     }, 500);
   }
 
@@ -119,7 +116,7 @@ class App extends React.Component {
   screenHasChanged() {
     // always return to WELCOME SCREEN - do not leave kiosk hanging
     clearInterval(this.intervalId);
-    this.intervalId = setInterval(() => { this.restartKiosk() }, RESTART_TIME);
+    this.intervalId = setInterval(() => { this.restartKiosk() }, Config.RESTART_MSECS);
 
     switch (this.state.currScreen) {
       case HELLO_SCREEN :
@@ -129,13 +126,17 @@ class App extends React.Component {
         break;
       case PET_SCREEN :
         break;
-      case CONF_SCREEN :
-        // make single Ajax call at Confirmation Screen
-        AjaxObject.addCustomer(this.state.person);
+      case CONFIRM_SCREEN :
+        // make single Ajax call at Confirmation Screen only
+        this.makeCreateCustomerRequest();
         break;
       default :
         break;
     }
+  }
+
+  makeCreateCustomerRequest() {
+    AjaxObject.createCustomer(this);
   }
 
   // pass this all the way down to Pets screen!
@@ -165,7 +166,7 @@ class App extends React.Component {
         </ScreenViewer>
         <NextButton
           appState={this.state}
-          onClickMe={this.onNextButtonClick}>
+          onNextButtonClick={this.onNextButtonClick}>
         </NextButton>
         <DebugViewer 
           appState={this.state}>
