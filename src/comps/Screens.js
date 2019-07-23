@@ -18,13 +18,13 @@ export const CONFIRM_SCREEN = 4;
 
 
 // NO_SCREEN
-export const Screen0 = (props) => {
+export const ScreenNone = (props) => {
   return <div></div>;
 }
 
 
 // HELLO_SCREEN
-export const Screen1 = (props) => {
+export const ScreenHello = (props) => {
   // use a custom hook here
   // const canAdvance = useCanAdvance(props.currScreen);
 
@@ -53,22 +53,57 @@ export const Screen1 = (props) => {
 
 // NAME_SCREEN - uses Keypad
 // props.onKeyMouseDown is passed down from App
-export const Screen2 = (props) => {
+// MAY HAVE TO CHANGE THIS TO A COMPONENT AND USE REF
+/*
+export const ScreenName = (props) => {
   return (
     <ScreenPoses
       className = "screen"
       pose={props.currScreen === NAME_SCREEN ? "poseVisible" : "poseHidden"}>    
       <h1>Please enter your name</h1>
       <TabletPoses>    
-        <Keypad onKeyMouseDown={props.onKeyMouseDown} appState={props.appState}></Keypad>
+        <Keypad 
+          onKeyMouseDown={props.onKeyMouseDown} 
+          appState={props.appState}
+          shouldClearBuffers = {props.shouldClearKeypadBuffers}>
+        </Keypad>
       </TabletPoses>
     </ScreenPoses>
   );
 }
+*/
 
+export class ScreenName extends React.Component {
+  constructor(props) {
+    super(props);
+    this.keypad = React.createRef();
+  }
+
+  clearKeypadBuffers() {
+    this.keypad.current.clearBuffers()
+  }
+
+  render() {
+    return (
+      <ScreenPoses
+        className = "screen"
+        pose={this.props.currScreen === NAME_SCREEN ? "poseVisible" : "poseHidden"}>    
+        <h1>Please enter your name</h1>
+        <TabletPoses>    
+          <Keypad 
+            ref={this.keypad} 
+            onKeyMouseDown={this.props.onKeyMouseDown} 
+            appState={this.props.appState}>
+          </Keypad>
+        </TabletPoses>
+      </ScreenPoses>
+    );
+  }
+
+}
 
 // PET_SCREEN
-export const Screen3 = (props) => {
+export const ScreenPet = (props) => {
   let fName = formatName(props.appState.person.firstName);
   return (
     <ScreenPoses
@@ -82,7 +117,7 @@ export const Screen3 = (props) => {
 
 
 // CONFIRM_SCREEN
-export const Screen4 = (props) => {
+export const ScreenConf = (props) => {
   let fName = formatName(props.appState.person.firstName);
   let thanks = "Thank You " + fName;    // re-renders!
   let pet = props.appState.person.pet;

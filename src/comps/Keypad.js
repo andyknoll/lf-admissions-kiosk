@@ -1,11 +1,13 @@
 // Keypad.js
 
+// BUG - MUST CLEAR BUFFERS EACH CYCLE!!!!
+
 import React from 'react';
 import { KeysPoses, KeyPoses } from '../utils/Poses';
 
 import '../css/Keypad.css';
 
-class Keypad extends React.Component {
+export default class Keypad extends React.Component {
 
   constructor(props) {
     super(props);
@@ -20,6 +22,15 @@ class Keypad extends React.Component {
     this.onKeyMouseDown = this.onKeyMouseDown.bind(this);       // must bind!
     this.onFNameFocus   = this.onFNameFocus.bind(this);         // must bind!
     this.onLNameFocus   = this.onLNameFocus.bind(this);         // must bind!
+  }
+
+  // must call this each time this screen first shows
+  // why can't I call this from App?
+  clearBuffers = () => {
+    if(this.state.buffers[0] === "" && this.state.buffers[1] === "") return;
+    const emptyBuffers = ["", ""];
+    this.setState({buffers: emptyBuffers});   // merge
+    alert("Keypad.clearBuffers OK");
   }
 
 
@@ -64,10 +75,12 @@ class Keypad extends React.Component {
     this.props.onKeyMouseDown(this.state);    // call Screen's handler passing entire state
   }
 
+  // does not clear buffer - only switches
   onFNameFocus = () => {
     this.setState({currBufferIdx: 0});
   }
 
+  // does not clear buffer - only switches
   onLNameFocus = () => {
     this.setState({currBufferIdx: 1});
   }
@@ -75,6 +88,8 @@ class Keypad extends React.Component {
   render() {
     let fName = this.props.appState.person.firstName;
     let lName = this.props.appState.person.lastName;
+
+    if (this.props.shouldClearBuffers) this.clearBuffers();   // 07/22 trying this...
 
     return (
       <div className="keypad no-select">
@@ -155,8 +170,7 @@ const Key = (props) => {
     <KeyPoses
       id={props.id}
       className="key"
-      onMouseDown={() => {props.onKeyDown(props.id)}}
-      onMouseUp={() => {}}>
+      onMouseDown={() => {props.onKeyDown(props.id)}}>
       {props.id}
     </KeyPoses>      
   );
@@ -168,11 +182,9 @@ const KeyCtrl = (props) => {
     <KeyPoses
       id={props.id}
       className="key key-half-height"
-      onMouseDown={() => props.onKeyDown(props.id)}
-      onMouseUp={() => {}}>
+      onMouseDown={() => props.onKeyDown(props.id)}>
       {props.id}
     </KeyPoses>      
   );
 }
 
-export default Keypad;

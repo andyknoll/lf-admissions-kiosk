@@ -13,9 +13,6 @@
 
   TO DO:
   
-    Axios AJAX calls - wait for Promise?
-    upload actual Customer object
-    PHP/MySQL DB server
     NextButton and ParaPoses not working
     try hooks
 
@@ -28,6 +25,10 @@
     add repo to Guthub
     pulled to PC-B1
     enable Next button - canAdvance() (started)
+    Axios AJAX calls - wait for Promise?
+    upload actual Customer object
+    PHP/MySQL DB server
+    use Config.js file
 
 */
 
@@ -45,6 +46,17 @@ import '../css/App.css';
 //const RESTART_TIME = 60000;   // 60 seconds per screen until restart
 
 
+const INITIAL_STATE = {
+  person: {
+    firstName: "",
+    lastName: "",
+    pet: PetNames[PET_NONE]
+  },
+  currScreen: NO_SCREEN,
+  ajaxMessage: ""
+};
+
+
 // CUSTOM HOOK! this is wrong though...
 // errors when I try to call setScreenIsLocked()
 // right now this is no different than a boolean function
@@ -53,8 +65,6 @@ export const useScreenIsLocked = (state) => {
 
   switch (state.currScreen) {
     case HELLO_SCREEN : 
-      //setScreenIsLocked(false);
-      //return screenIsLocked;
       return false;
     case NAME_SCREEN  : 
       return state.person.firstName === "" || state.person.lastName === "";
@@ -67,15 +77,9 @@ export const useScreenIsLocked = (state) => {
   }
 }
 
-const INITIAL_STATE = {
-  person: {
-    firstName: "",
-    lastName: "",
-    pet: PetNames[PET_NONE]
-  },
-  currScreen: NO_SCREEN,
-  ajaxMessage: ""
-};
+
+
+
 
 
 class App extends React.Component {
@@ -83,7 +87,7 @@ class App extends React.Component {
     super(props);
 
     this.state = INITIAL_STATE;
-    this.screenMgr = new ScreenManager();                 // contained object!  :-)
+    this.screenMgr = new ScreenManager();                         // contained object!  :-)
     this.intervalId = 0;
 
     this.onNextButtonClick = this.onNextButtonClick.bind(this);   // must bind!
@@ -92,9 +96,17 @@ class App extends React.Component {
   }
 
   // clear ENTIRE state here - person too!
+  // note: could not pass in INITIAL_STATE here
   restartKiosk() {
-    this.setState(INITIAL_STATE);
-    this.setState({currScreen: HELLO_SCREEN});
+    this.setState({
+      person: {
+        firstName: "",
+        lastName: "",
+        pet: PetNames[PET_NONE]
+      },
+      currScreen: HELLO_SCREEN,
+      ajaxMessage: ""
+    });
   }
 
 
@@ -109,12 +121,12 @@ class App extends React.Component {
     // static class methods work too!
     // let nextScreen = ScreenManager.determineNextScreen(this.state.currScreen);
     let nextScreen = this.screenMgr.determineNextScreen(this.state.currScreen);
-    this.setState({currScreen: nextScreen}, () => {this.screenHasChanged()});
+    this.setState({currScreen: nextScreen}, () => this.screenHasChanged());
   }
 
-  // called AFTER this.setState is completed
+  // called AFTER this.setState is completed above
   screenHasChanged() {
-    // always return to WELCOME SCREEN - do not leave kiosk hanging
+    // always return to HELLO_SCREEN after 60 secs - do not leave kiosk hanging
     clearInterval(this.intervalId);
     this.intervalId = setInterval(() => { this.restartKiosk() }, Config.RESTART_MSECS);
 
@@ -123,19 +135,21 @@ class App extends React.Component {
         this.restartKiosk();    // clear state
         break;
       case NAME_SCREEN :
+        //this.clearKeypadBuffers();    // no - use props!
         break;
       case PET_SCREEN :
         break;
       case CONFIRM_SCREEN :
-        // make single Ajax call at Confirmation Screen only
-        this.makeCreateCustomerRequest();
+        this.postCreateCustomerRequest();
         break;
       default :
         break;
     }
   }
 
-  makeCreateCustomerRequest() {
+  
+  // make single Ajax call at Confirmation Screen only
+  postCreateCustomerRequest() {
     AjaxObject.createCustomer(this);
   }
 
@@ -159,16 +173,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        {/* 
-        <header className="app-header">
-          <h1 className="app-title">Lollypop Farm Admissions Kiosk</h1>
-        </header>
-        */}
-        
         <ScreenViewer 
           appState={this.state}
           onPetMouseDown={this.onPetMouseDown}
-          onKeyMouseDown={this.onKeyMouseDown}>
+          onKeyMouseDown={this.onKeyMouseDown}
+          shouldClearKeypadBuffers={this.state.currScreen === NAME_SCREEN}>
         </ScreenViewer>
         <NextButton
           appState={this.state}
