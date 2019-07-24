@@ -44,17 +44,8 @@ import { Config } from '../Config'
 import '../css/App.css';
 
 //const RESTART_TIME = 60000;   // 60 seconds per screen until restart
-
-
-const INITIAL_STATE = {
-  person: {
-    firstName: "",
-    lastName: "",
-    pet: PetNames[PET_NONE]
-  },
-  currScreen: NO_SCREEN,
-  ajaxMessage: ""
-};
+const FIRST_NAME = "FIRST_NAME";
+const LAST_NAME = "LAST_NAME";
 
 
 // CUSTOM HOOK! this is wrong though...
@@ -77,36 +68,42 @@ export const useScreenIsLocked = (state) => {
   }
 }
 
-
+const INITIAL_STATE = {
+  person: {
+    firstName: "",
+    lastName: "",
+    pet: PetNames[PET_NONE]
+  },
+  currScreen: NO_SCREEN,
+  currName: FIRST_NAME,
+  ajaxMessage: ""
+};
 
 
 
 
 class App extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = INITIAL_STATE;
-    this.screenMgr = new ScreenManager();                         // contained object!  :-)
+    this.screenMgr = new ScreenManager();   // a contained object instance!  :-)
     this.intervalId = 0;
 
-    this.onNextButtonClick = this.onNextButtonClick.bind(this);   // must bind!
-    this.onPetMouseDown = this.onPetMouseDown.bind(this);         // must bind!
-    this.onKeyMouseDown = this.onKeyMouseDown.bind(this);         // must bind!
+    // must bind all these handlers
+    this.onNextButtonClick = this.onNextButtonClick.bind(this);
+    this.onPetMouseDown = this.onPetMouseDown.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onFNameFocus = this.onFNameFocus.bind(this);
+    this.onLNameFocus = this.onLNameFocus.bind(this);
   }
 
   // clear ENTIRE state here - person too!
   // note: could not pass in INITIAL_STATE here
   restartKiosk() {
-    this.setState({
-      person: {
-        firstName: "",
-        lastName: "",
-        pet: PetNames[PET_NONE]
-      },
-      currScreen: HELLO_SCREEN,
-      ajaxMessage: ""
-    });
+    this.setState(INITIAL_STATE);
+    this.setState({currScreen: HELLO_SCREEN});
   }
 
 
@@ -156,17 +153,53 @@ class App extends React.Component {
   // pass this all the way down to Pets screen!
   onPetMouseDown(petId) {
     let person = this.state.person;
-    // object spread
-    this.setState({person: {...person, pet: PetNames[petId]}});
+    this.setState({person: {...person, pet: PetNames[petId]}});   // object spread
   }
 
-  // set first or last name depending on Keypad buffer
-  onKeyMouseDown(keypadState) {
+  // set first or last name depending on Keypad input box
+  onKeyDown(keyId) {
     let person = this.state.person;
-    let currIdx = keypadState.currBufferIdx;
-    let val = keypadState.buffers[currIdx];               // buffers [0] or [1]
-    if (currIdx === 0) this.setState({person: {...person, firstName: val}});
-    if (currIdx === 1) this.setState({person: {...person, lastName: val}});
+    let oldVal = "";
+    let newVal = "";
+
+    if (this.state.currName === FIRST_NAME) oldVal = this.state.person.firstName;
+    if (this.state.currName === LAST_NAME) oldVal = this.state.person.lastName;
+
+    switch (keyId) {
+      case "back" : 
+        newVal = oldVal.substring(0, oldVal.length-1);
+        break;
+      case "space" : 
+        newVal = oldVal + " ";
+        break;
+      case "clear" : 
+        newVal = ""; 
+        break;
+      default : 
+        newVal = oldVal + keyId;
+    }
+
+    if (this.state.currName === FIRST_NAME) {
+      this.setState({person: {...person, firstName: newVal}});
+    }
+
+    if (this.state.currName === LAST_NAME) {
+      this.setState({person: {...person, lastName: newVal}});
+    }
+
+  }
+
+
+  // pass down thru ScreenViewer -> ScreenName -> Keypad -> input-fname
+  onFNameFocus = () => {
+    //alert("App.onFNameFocus: ");
+    this.setState({currName: FIRST_NAME});
+  }
+
+  // pass down thru ScreenViewer -> ScreenName -> Keypad -> input-lname
+  onLNameFocus = () => {
+    //alert("App.onLNameFocus: ");
+    this.setState({currName: LAST_NAME});
   }
 
 
@@ -176,8 +209,10 @@ class App extends React.Component {
         <ScreenViewer 
           appState={this.state}
           onPetMouseDown={this.onPetMouseDown}
-          onKeyMouseDown={this.onKeyMouseDown}
-          shouldClearKeypadBuffers={this.state.currScreen === NAME_SCREEN}>
+          onKeyDown={this.onKeyDown}
+          onFNameFocus={this.onFNameFocus}
+          onLNameFocus={this.onLNameFocus}
+        >
         </ScreenViewer>
         <NextButton
           appState={this.state}

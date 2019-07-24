@@ -31,7 +31,7 @@ export class ScreenManager {
 }
   
 
-// we only want to render the current screen!
+// props passed down from App
 export const ScreenViewer = (props) => {
   let state = props.appState;
   return (
@@ -40,8 +40,11 @@ export const ScreenViewer = (props) => {
       <ScreenHello currScreen={state.currScreen} appState={state}></ScreenHello>
       <ScreenName  
         currScreen={state.currScreen} 
-        appState={state} onKeyMouseDown={props.onKeyMouseDown} 
-        shouldClearKeypadBuffers={props.shouldClearKeypadBuffers}>
+        appState={state} 
+        onKeyDown={props.onKeyDown}
+        onFNameFocus={props.onFNameFocus}
+        onLNameFocus={props.onLNameFocus}
+      >
       </ScreenName>
       <ScreenPet   currScreen={state.currScreen} appState={state} onPetMouseDown={props.onPetMouseDown}></ScreenPet>
       <ScreenConf  currScreen={state.currScreen} appState={state}></ScreenConf>

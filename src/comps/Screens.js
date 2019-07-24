@@ -2,7 +2,7 @@
 
 import React from 'react';
 import SplitText from 'react-pose-text';
-import Keypad from './Keypad';
+import { Keypad } from './Keypad';
 import Pets from './Pets';
 import { ScreenPoses, ParaPoses, TabletPoses, CharPoses, LogoPoses } from '../utils/Poses';
 
@@ -53,8 +53,6 @@ export const ScreenHello = (props) => {
 
 // NAME_SCREEN - uses Keypad
 // props.onKeyMouseDown is passed down from App
-// MAY HAVE TO CHANGE THIS TO A COMPONENT AND USE REF
-/*
 export const ScreenName = (props) => {
   return (
     <ScreenPoses
@@ -63,44 +61,17 @@ export const ScreenName = (props) => {
       <h1>Please enter your name</h1>
       <TabletPoses>    
         <Keypad 
-          onKeyMouseDown={props.onKeyMouseDown} 
+          onKeyDown={props.onKeyDown} 
           appState={props.appState}
-          shouldClearBuffers = {props.shouldClearKeypadBuffers}>
+          onFNameFocus={props.onFNameFocus}
+          onLNameFocus={props.onLNameFocus}
+        >
         </Keypad>
       </TabletPoses>
     </ScreenPoses>
   );
 }
-*/
 
-export class ScreenName extends React.Component {
-  constructor(props) {
-    super(props);
-    this.keypad = React.createRef();
-  }
-
-  clearKeypadBuffers() {
-    this.keypad.current.clearBuffers()
-  }
-
-  render() {
-    return (
-      <ScreenPoses
-        className = "screen"
-        pose={this.props.currScreen === NAME_SCREEN ? "poseVisible" : "poseHidden"}>    
-        <h1>Please enter your name</h1>
-        <TabletPoses>    
-          <Keypad 
-            ref={this.keypad} 
-            onKeyMouseDown={this.props.onKeyMouseDown} 
-            appState={this.props.appState}>
-          </Keypad>
-        </TabletPoses>
-      </ScreenPoses>
-    );
-  }
-
-}
 
 // PET_SCREEN
 export const ScreenPet = (props) => {
