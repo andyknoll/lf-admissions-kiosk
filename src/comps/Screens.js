@@ -1,6 +1,6 @@
 // Screen0.js
 
-import React from 'react';
+import React, { useState } from 'react';
 import SplitText from 'react-pose-text';
 import { Keypad } from './Keypad';
 import Pets from './Pets';
@@ -89,13 +89,24 @@ export const ScreenPet = (props) => {
 
 // CONFIRM_SCREEN
 export const ScreenConf = (props) => {
-  let fName = formatName(props.appState.person.firstName);
-  let thanks = "Thank You " + fName;    // re-renders!
-  let pet = props.appState.person.pet;
-  let petName = pet.toLowerCase();
+  const [fName, setFName] = useState("");     // hook
+  const [pet, setPet] = useState("");
+
+  // cache name and pet for when state changes them to blank
+  if (props.appState.person.firstName !== "" && fName === "") {
+    setFName(props.appState.person.firstName);
+  }
+
+  if (props.appState.person.pet !== "NONE" && pet === "") {
+    setPet(props.appState.person.pet);
+  }
+
+  let thanks = "Thank You " + formatName(fName);
+  let petName = pet.toLowerCase();      // cat, dog, etc.
 
   // fix this so it does not depend on NAMES
-  if (pet === "SMALL" || pet === "OTHER" || pet === "NONE") petName = "pet";
+  if (pet === "SMALL") petName = "small pet";
+  if (pet === "OTHER") petName = "special pet";
 
   return (
     <ScreenPoses
@@ -103,7 +114,7 @@ export const ScreenConf = (props) => {
       pose={props.currScreen === CONFIRM_SCREEN ? "poseVisible" : "poseHidden"}>    
       <h1>{thanks}</h1>
       <ParaPoses>    
-        <h2>An Admissions staff member will be with you<br/> shortly to help you with your {petName}.</h2>
+        <h2>An Admissions staff member will be with you <br/> shortly to help you with your {petName}.</h2>
       </ParaPoses>
       <LogoPoses className="logo"></LogoPoses>
       <div className="message-area">{props.appState.ajaxMessage}</div>
@@ -113,7 +124,7 @@ export const ScreenConf = (props) => {
 
 // PUT THESE IN utils.js!
 
-// capitalize first letter - could be Mary Beth, etc.
+// capitalize first letters - could be Mary Beth, etc.
 const formatName = (name) => {
   let parts = name.toLowerCase().split(" ");
   let newName = "";

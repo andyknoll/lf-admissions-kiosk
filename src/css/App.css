@@ -32,9 +32,9 @@ h2 {
   margin: auto;
   margin-top: 10px;
   width: 1000px;
+  min-width: 1000px;
   height: 800px;
   text-align: center;
-
   padding: 0 0px;
   width: 100%;
   margin: auto;
